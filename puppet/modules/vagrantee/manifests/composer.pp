@@ -8,9 +8,9 @@ class vagrantee::composer (
     require => [ Class[ php ], Package[ curl ] ]
   }
 
-  exec { "mv composer.phar /usr/local/bin/composer":
+  exec { "mv composer.phar /usr/bin/composer":
     cwd     => "/home/vagrant",
-    creates => "/usr/local/bin/composer",
+    creates => "/usr/bin/composer",
     require => Exec ["curl -sS https://getcomposer.org/installer | php"]
   }
 
