@@ -7,6 +7,9 @@ Vagrant.configure("2") do |config|
 
     config.vm.synced_folder "./", "/vagrant", id: "vagrant-root"
 
+    config.vm.provision :shell, :inline => 'echo -e "mysql_root_password=root
+    controluser_password=root" > /etc/phpmyadmin.facts;'
+
     config.vm.provision :puppet do |puppet|
         puppet.manifests_path = "puppet/manifests"
         puppet.module_path = "puppet/modules"
