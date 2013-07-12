@@ -10,6 +10,7 @@ It comes with:
 * PHP 5.4
 * MySQL
 * phpmyadmin
+* composer
 
 more customization options are being planned.
 

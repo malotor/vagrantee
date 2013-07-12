@@ -79,4 +79,6 @@ class vagrantee(
     require     => Class['phpmyadmin'],
     template    => 'vagrantee/apache/vhost.conf.erb',
   }
+
+  class { 'vagrantee::composer':}
 }
