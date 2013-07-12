@@ -16,26 +16,7 @@ more options to come soon.
 Make sure you have both Vagrant and Virtualbox properly installed:
 http://www.erikaheidi.com/2013/07/02/a-begginers-guide-to-vagrant-getting-your-portable-development-environment/
 
-usage - as a puppet module
-===========
-
-The better way to integrate vagrantee in an existent project is by adding it as a submodule and creating your own default.pp manifest file declaring the vagrantee module.
-Vagrantee itself with manage the other puppet submodules.
-
-``git submodule add https://github.com/erikaheidi/vagrantee``
-
-Then go the vagrantee directory and run
-
-``git submodule init | git submodule update``
-
-And all the puppet modules will be initialized.
-
-Now copy the Vagrantfile-project.example to your project root folder and rename it for <strong>Vagrantfile</strong>.
-By default, it will use the vagrantee/manifests/default.pp manifest , but you can use your own manifests, just change the path on the Vagrantfile to your own manifests path.
-Then you can set up specific settings by declaring the vagrantee module with some arguments.
-
-
-usage - standalone
+simple usage
 =========
 
 If you just want to test vagrantee, this is the easier way.
@@ -46,7 +27,7 @@ Clone vagrantee repository
 
 Init and update the submodules (puppet modules are added as submodules)
 
-``git submodule init || git submodule update``
+``git submodule init | git submodule update``
 
 Run vagrant
 
@@ -62,3 +43,23 @@ phpmyadmin
 phpmyadmin will be available at http://192.168.33.101:8000
 
 login: root, password: root
+
+usage - as a puppet module
+===========
+
+If you want to use vagrantee in an existent project while maintaining the puppet modules always up-to-date, you can add vagrantee as a git submodule.
+Vagrantee itself with manage the other git submodules (puppet modules).
+
+``git submodule add https://github.com/erikaheidi/vagrantee``
+
+Then go the vagrantee directory and run
+
+``git submodule init | git submodule update``
+
+And all the puppet modules will be initialized.
+
+Now copy the Vagrantfile-project.example to your project root folder and rename it for <strong>Vagrantfile</strong>.
+By default, it will use the vagrantee/manifests/default.pp manifest , but you can use your own manifests, just change the path on the Vagrantfile to your own manifests path.
+Then you can set up specific settings by declaring the vagrantee module with some arguments, and also create additional configurations.
+
+
