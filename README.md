@@ -11,7 +11,7 @@ It comes with:
 * MySQL
 * phpmyadmin
 
-more options to come soon.
+more customization options are being planned.
 
 Make sure you have both Vagrant and Virtualbox properly installed:
 http://www.erikaheidi.com/2013/07/02/a-begginers-guide-to-vagrant-getting-your-portable-development-environment/
@@ -48,7 +48,7 @@ usage - as a puppet module
 ===========
 
 If you want to use vagrantee in an existent project while maintaining the puppet modules always up-to-date, you can add vagrantee as a git submodule.
-Vagrantee itself with manage the other git submodules (puppet modules).
+This way you have more flexibility for setting more customizations. Vagrantee itself will manage the other git submodules (puppet modules).
 
 ``git submodule add https://github.com/erikaheidi/vagrantee``
 
