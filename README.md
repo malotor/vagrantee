@@ -22,7 +22,7 @@ simple usage
 
 If you just want to test vagrantee, this is the easier way.
 
-Clone vagrantee repository
+<h4>Clone vagrantee repository</h4>
 
 ``git clone https://github.com/erikaheidi/vagrantee.git``
 
@@ -33,15 +33,14 @@ Init and update the submodules (puppet modules are added as submodules)
 
 ``git submodule update``
 
-Run vagrant
+<h4>Run vagrant</h4>
 
 ``vagrant up``
 
-Check if everything is ok (after the machine is provisioned)
+<h4>That's it</h4>
+After the machine is provisioned, go to http://192.168.33.101 in your browser, you shall see a phpinfo() from your VM.
 
-Go to http://192.168.33.101 in your browser, you shall see a phpinfo() from your VM.
-
-phpmyadmin
+<h4>phpmyadmin</h4>
 =====
 
 phpmyadmin will be available at http://192.168.33.101:8000
