@@ -67,8 +67,8 @@ class vagrantee(
     mysql_grant_filepath => '/home/vagrant/puppet-mysql',
   }
 
-  class { 'phpmyadmin':
-    require => Class['mysql'],
+  package { 'phpmyadmin':
+    require => Class[ 'mysql' ],
   }
 
   apache::vhost { 'phpmyadmin':
@@ -76,7 +76,7 @@ class vagrantee(
     docroot     => '/usr/share/phpmyadmin',
     port        => $pma_port,
     priority    => '10',
-    require     => Class['phpmyadmin'],
+    require     => Package['phpmyadmin'],
     template    => 'vagrantee/apache/vhost.conf.erb',
   }
 

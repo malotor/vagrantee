@@ -28,7 +28,10 @@ Clone vagrantee repository
 
 Init and update the submodules (puppet modules are added as submodules)
 
-``git submodule init | git submodule update``
+``git submodule init``
+
+
+``git submodule update``
 
 Run vagrant
 
@@ -55,7 +58,10 @@ This way you have more flexibility for setting more customizations. Vagrantee it
 
 Then go the vagrantee directory and run
 
-``git submodule init | git submodule update``
+``git submodule init``
+
+
+``git submodule update``
 
 And all the puppet modules will be initialized.
 
