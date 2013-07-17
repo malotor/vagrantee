@@ -1,7 +1,7 @@
 class vagrantee(
   $doc_root        = '/vagrant/web',
   $php_modules     = [ 'imagick', 'xdebug', 'curl', 'mysql', 'cli', 'intl', 'mcrypt', 'memcache'],
-  $sys_packages    = [ 'build-essential', 'git', 'curl', 'vim'],
+  $sys_packages    = [ 'build-essential', 'curl', 'vim'],
   $mysql_host      = 'localhost',
   $mysql_db        = 'default',
   $mysql_user      = 'default',
@@ -18,6 +18,8 @@ class vagrantee(
   class { 'apt':
     always_apt_update => true,
   }
+
+  class { 'git': }
 
   package { ['python-software-properties']:
     ensure  => 'installed',
