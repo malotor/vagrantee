@@ -80,5 +80,7 @@ class vagrantee(
     template    => 'vagrantee/apache/vhost.conf.erb',
   }
 
-  class { 'vagrantee::composer':}
+  class { 'composer':
+    require => [ Class[ 'php' ], Package[ 'curl' ] ]
+  }
 }
