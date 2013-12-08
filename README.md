@@ -24,7 +24,7 @@ If you just want to test vagrantee, this is the easier way.
 
 <h4>Clone vagrantee repository</h4>
 
-``git clone https://github.com/erikaheidi/vagrantee.git``
+``git clone https://github.com/vagrantee/vagrantee.git``
 
 Init and update the submodules (puppet modules are added as submodules)
 
@@ -53,7 +53,7 @@ usage - as a puppet module
 If you want to use vagrantee in an existent project while maintaining the puppet modules always up-to-date, you can add vagrantee as a git submodule.
 This way you have more flexibility for setting more customizations. Vagrantee itself will manage the other git submodules (puppet modules).
 
-``git submodule add https://github.com/erikaheidi/vagrantee``
+``git submodule add https://github.com/vagrantee/vagrantee``
 
 Then go the vagrantee directory and run
 
