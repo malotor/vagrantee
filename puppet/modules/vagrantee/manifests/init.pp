@@ -73,6 +73,8 @@ class vagrantee(
     require => Class[ 'mysql' ],
   }
 
+  apache::listen { $pma_port: }
+
   apache::vhost { 'phpmyadmin':
     server_name => false,
     docroot     => '/usr/share/phpmyadmin',
