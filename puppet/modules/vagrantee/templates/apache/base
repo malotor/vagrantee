@@ -1,0 +1,47 @@
+# ************************************
+# Vhost template in module puppetlabs-apache
+# Managed by Puppet
+# ************************************
+
+<VirtualHost *:80>
+  ServerName cibbva.dev
+
+  ## Vhost docroot
+  DocumentRoot "/var/www/sites/cibbva.dev/htdocs"
+
+
+
+  ## Directories, there should at least be a declaration for /var/www/sites/cibbva.dev/htdocs
+
+  <Directory "/var/www/sites/cibbva.dev/htdocs">
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride All
+    Require all granted
+  </Directory>
+
+  ## Load additional static includes
+ ## Logging
+  ErrorLog "/var/log/apache2/lIWkSL6zEO9q_error.log"
+  ServerSignature Off
+  CustomLog "/var/log/apache2/lIWkSL6zEO9q_access.log" combined
+
+
+
+
+  ## Server aliases
+  ServerAlias www.cibbva.dev
+  ServerAlias licewa01.solium.es
+
+  ## Custom fragment
+  ## Custom fragment
+
+
+
+
+
+    ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000/var/www/sites/cibbva.dev/htdocs/$1
+
+
+
+
+</VirtualHost>

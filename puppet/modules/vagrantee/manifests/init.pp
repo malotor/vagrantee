@@ -6,7 +6,7 @@ class vagrantee(
   $mysql_db        = 'default',
   $mysql_user      = 'default',
   $mysql_pass      = 'password',
-  $pma_port        = '8000'
+  $pma_port        = '80'
 ) {
 
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] }
