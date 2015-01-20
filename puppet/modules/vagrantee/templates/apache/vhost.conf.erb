@@ -3,7 +3,7 @@
 <% if @port != '80' -%>
 Listen <%= @port %>
 <% end -%>
-<VirtualHost *:<%= @port %>>
+<VirtualHost <%= @server_name_value %>:<%= @port %>>
     ServerAdmin <%= @server_admin_email %>
     DocumentRoot <%= @real_docroot %>
 <% if @server_name_value != false -%>

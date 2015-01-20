@@ -1,12 +1,12 @@
 class vagrantee(
-  $doc_root        = '/vagrant/web',
+  $doc_root        = '/vagrant/htdocs',
   $php_modules     = [ 'imagick', 'xdebug', 'curl', 'mysql', 'cli', 'intl', 'mcrypt', 'memcache'],
   $sys_packages    = [ 'build-essential', 'curl', 'vim'],
   $mysql_host      = 'localhost',
   $mysql_db        = 'default',
   $mysql_user      = 'default',
   $mysql_pass      = 'password',
-  $pma_port        = 8000
+  $pma_port        = '8000'
 ) {
 
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] }
@@ -36,7 +36,7 @@ class vagrantee(
 
   apache::vhost { 'default':
     docroot             => $doc_root,
-    server_name         => false,
+    server_name         => 'newcibbva.dev',
     priority            => '',
     template            => 'vagrantee/apache/vhost.conf.erb',
   }
@@ -73,7 +73,7 @@ class vagrantee(
     require => Class[ 'mysql' ],
   }
 
-  apache::listen { $pma_port: }
+  #apache::listen { $pma_port: }
 
   apache::vhost { 'phpmyadmin':
     server_name => false,
@@ -87,4 +87,7 @@ class vagrantee(
   class { 'composer':
     require => [ Class[ 'php' ], Package[ 'curl' ] ]
   }
+
+  class { 'dotfiles': }
+
 }
