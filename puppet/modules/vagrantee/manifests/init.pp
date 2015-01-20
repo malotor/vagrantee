@@ -1,5 +1,5 @@
 class vagrantee(
-  $doc_root        = '/vagrant/htdocs',
+  $doc_root        = '/vagrant/web',
   $php_modules     = [ 'imagick', 'xdebug', 'curl', 'mysql', 'cli', 'intl', 'mcrypt', 'memcache'],
   $sys_packages    = [ 'build-essential', 'curl', 'vim'],
   $mysql_host      = 'localhost',
@@ -34,11 +34,13 @@ class vagrantee(
 
   apache::module { 'rewrite': }
 
-  apache::vhost { 'default':
+  apache::vhost { 'newcibbva':
     docroot             => $doc_root,
     server_name         => 'newcibbva.dev',
     priority            => '',
     template            => 'vagrantee/apache/vhost.conf.erb',
+    directory           => $doc_root,
+    directory_allow_override   => 'All'
   }
 
   apt::ppa { 'ppa:ondrej/php5':
@@ -89,5 +91,21 @@ class vagrantee(
   }
 
   class { 'dotfiles': }
+
+  file { '/home/vagrant':
+    mode => 0770,
+  }
+
+  file { $doc_root:
+    owner => "vagrant",
+    group => "www-data",
+    recurse => true,
+  }
+
+
+  exec { "chmod 2775 $doc_root": }
+  exec { "find $doc_root -type d -exec chmod 2775 {} +": }
+  exec { "find $doc_root -type f -exec chmod 0664 {} +": }
+
 
 }

@@ -1,12 +1,9 @@
 class drush (
 ) {
-
   exec { "composer global require drush/drush:dev-master":
-    cwd     => "/home/vagrant",
+    require => Class['composer'],
   }
-
   exec { "composer global update":
-    cwd     => "/home/vagrant",
+    require => Exec ["composer global require drush/drush:dev-master"]
   }
-
 }

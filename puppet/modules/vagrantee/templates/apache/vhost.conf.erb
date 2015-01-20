@@ -50,6 +50,8 @@ Listen <%= @port %>
         <% if @directory_allow_override != "None" -%>
         AllowOverride <%= @directory_allow_override %>
         <% end -%>
+        Options Indexes FollowSymLinks MultiViews
+        Require all granted
     </Directory>
 <% end -%>
 </VirtualHost>
