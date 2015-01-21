@@ -3,9 +3,9 @@ class vagrantee(
   $php_modules     = [ 'imagick', 'xdebug', 'curl', 'mysql', 'cli', 'intl', 'mcrypt', 'memcache'],
   $sys_packages    = [ 'build-essential', 'curl', 'vim'],
   $mysql_host      = 'localhost',
-  $mysql_db        = 'default',
-  $mysql_user      = 'default',
-  $mysql_pass      = 'password',
+  $mysql_db        = 'drupal',
+  $mysql_user      = 'drupal',
+  $mysql_pass      = 'drupal01',
   $pma_port        = '80'
 ) {
 
@@ -80,7 +80,7 @@ class vagrantee(
   apache::vhost { 'phpmyadmin':
     server_name => false,
     docroot     => '/usr/share/phpmyadmin',
-    port        => $pma_port,
+    port        => '8000',
     priority    => '10',
     require     => Package['phpmyadmin'],
     template    => 'vagrantee/apache/vhost.conf.erb',
@@ -90,12 +90,42 @@ class vagrantee(
     require => [ Class[ 'php' ], Package[ 'curl' ] ]
   }
 
+  class { 'drush': }
+
   class { 'dotfiles': }
 
-  file { '/home/vagrant':
-    mode => 0770,
+
+  # Change user
+  exec { "ApacheUserChange" :
+    command => "sed -i 's/APACHE_RUN_USER=www-data/APACHE_RUN_USER=vagrant/' /etc/apache2/envvars",
+    onlyif  => "grep -c 'APACHE_RUN_USER=www-data' /etc/apache2/envvars",
+    require =>  Package["apache2"],
+    notify  => Service["apache2"],
   }
 
+  # Change group
+  exec { "ApacheGroupChange" :
+    command => "sed -i 's/APACHE_RUN_GROUP=www-data/APACHE_RUN_GROUP=vagrant/' /etc/apache2/envvars",
+    onlyif  => "grep -c 'APACHE_RUN_GROUP=www-data' /etc/apache2/envvars",
+    require =>  Package["apache2"],
+    notify  => Service["apache2"],
+  }
+
+  # Change log files and logrotate permissions
+  exec { "apache_logfile_permissions" :
+    command => "chmod -R a+rX /var/log/apache2",
+    require =>  Package["apache2"],
+  }
+  exec { "apache_logrotate_permissions" :
+    command => "sed -i 's/640/644/' /etc/logrotate.d/apache2",
+    require =>  Package["apache2"],
+  }
+
+  exec { "apache_lockfile_permissions" :
+    command => "chown -R vagrant:www-data /var/lock/apache2",
+    require =>  Package["apache2"],
+  }
+  /*
   file { $doc_root:
     owner => "vagrant",
     group => "www-data",
@@ -103,9 +133,16 @@ class vagrantee(
   }
 
 
-  exec { "chmod 2775 $doc_root": }
+  exec { "chmod -R 2775 $doc_root": }
   exec { "find $doc_root -type d -exec chmod 2775 {} +": }
   exec { "find $doc_root -type f -exec chmod 0664 {} +": }
+  */
 
-
+  /*
+  user { 'vagrant-group':
+    name    => 'www-data',
+    groups   => 'vagrant',
+    require => Class['apache'],
+  }
+  */
 }
