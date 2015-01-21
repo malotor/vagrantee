@@ -6,7 +6,8 @@ class project (
   $mysql_db        = 'dbname',
   $mysql_user      = 'dbuser',
   $mysql_pass      = 'dbuser01',
-  $pma_port        = '80'
+  $pma_port        = '80',
+  $drush_version   = '7.0.0-alpha8'
 ) {
 
   Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] }
@@ -42,7 +43,15 @@ class project (
     directory           => $doc_root,
     directory_allow_override   => 'All'
   }
-
+  apache::vhost { 'newcibbvassl':
+    docroot             => $doc_root,
+    server_name         => 'newcibbva.dev',
+    priority            => '',
+    template            => 'vagrantee/apache/vhost.conf.erb',
+    directory           => $doc_root,
+    directory_allow_override   => 'All',
+    port                 => '443',
+  }
   apt::ppa { 'ppa:ondrej/php5':
     before  => Class['php'],
   }
@@ -88,7 +97,7 @@ class project (
     require => [ Class[ 'php' ], Package[ 'curl' ] ]
   }
 
-  class { 'drush': }
+
 
   class { 'dotfiles': }
 
@@ -123,6 +132,10 @@ class project (
     require =>  Package["apache2"],
   }
 
-  class { 'drupal': }
+  class { 'drush':
+    version => $drush_version
+  }
+
+  class { 'drupal':}
 
 }
